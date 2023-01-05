@@ -162,14 +162,6 @@ ORDER BY 4 DESC
 -- Data analysis
 -- ======================
 
--- What was the best Year for sales? How much was earned that Year?
-
--- What was the best month for sales? How much was earned that month?
-
--- What City had the highest number of sales?
-
--- What time should we display adverstisement to maximize likelihood of customer’s buying product?
-
 -- What products are most often sold together?
 
 SELECT * FROM #temp_Sales
