@@ -32,3 +32,8 @@ Q: What time should we display adverstisement to maximize likelihood of customer
 Q: What products are most often sold together?
 
 Q: What product sold the most? Why do you think it sold the most?
+
+## Data visualisation
+
+A one-page report to answer management's questions :
+https://app.powerbi.com/links/IYaascdrEJ?ctid=ad028a66-0d77-4df0-865a-fe6d154e9164&pbi_source=linkShare
