@@ -37,4 +37,8 @@ Q: What product sold the most? Why do you think it sold the most?
 
 A one-page report to answer management's questions :
 
-https://app.powerbi.com/view?r=eyJrIjoiMjc4NmFkNDQtYTZhZC00ZTkyLTk3YWMtYTk5ZTUwMmY1MmMxIiwidCI6ImFkMDI4YTY2LTBkNzctNGRmMC04NjVhLWZlNmQxNTRlOTE2NCJ9
+[report](https://app.powerbi.com/view?r=eyJrIjoiMjc4NmFkNDQtYTZhZC00ZTkyLTk3YWMtYTk5ZTUwMmY1MmMxIiwidCI6ImFkMDI4YTY2LTBkNzctNGRmMC04NjVhLWZlNmQxNTRlOTE2NCJ9)
+
+A three page report to explore the dataset :
+
+[report](https://app.powerbi.com/view?r=eyJrIjoiOWRmMmVhYjktYjZkYS00NTgyLWEzODAtNDI0MDNmNTI4NDAzIiwidCI6ImFkMDI4YTY2LTBkNzctNGRmMC04NjVhLWZlNmQxNTRlOTE2NCJ9&pageName=ReportSection6696a30a5c26e5e45c58)
