@@ -32,8 +32,6 @@ CREATE TABLE #temp_Sales (
 	, [Purchase Postal Code] char(8)
 )
 
-SELECT * FROM #temp_Sales
-
 INSERT INTO #temp_Sales
 SELECT [Order ID]
 	, [Product]
@@ -53,24 +51,35 @@ SELECT * FROM #temp_Sales
 -- Data discovery
 -- ======================
 
+-- =============
 -- How many transaction do we have ?
 SELECT COUNT([Order ID]) AS 'Number of records' FROM #temp_Sales
+-- => We count 185 686 transactions.
 
+-- =============
 -- How many orders do we have ?
 SELECT COUNT(DISTINCT [Order ID]) AS 'Number of orders' FROM #temp_Sales 
+-- => We count 178 437 different orders.
 
+-- =============
 -- How much did we earn ? 
 SELECT SUM([Price Each] * [Quantity Ordered]) AS 'Total sales' FROM #temp_Sales
+-- => We sold for $ 34 465 537,94.
 
+-- =============
 -- Which products do we sell ?
 SELECT DISTINCT([Product]) FROM #temp_Sales
+-- => We sell 19 different products.
 
+-- =============
 -- How many of each product have we sold ?
 SELECT [Product], SUM([Quantity Ordered]) AS 'Number of sales'
 FROM #temp_Sales
 GROUP BY [Product]
 ORDER BY 2 DESC
+-- => The product we sell the most is AAA Batteries
 
+-- =============
 -- What is the weight of each product in the total Sales ?
 SELECT [Product]
 , SUM([Price Each] * [Quantity Ordered]) AS 'Total sales'
@@ -80,7 +89,9 @@ SELECT [Product]
 FROM #temp_Sales
 GROUP BY [Product]
 ORDER BY 2 DESC
+-- => Macbook Pro Laptop is our best seller with 23,31% of the total sales.
 
+-- =============
 -- What is the average basket ?
 SELECT FORMAT(AVG([Basket amount]), 'C') AS 'Average basket'
 FROM (
@@ -88,12 +99,16 @@ FROM (
 	FROM #temp_Sales
 	GROUP BY [Order ID]
 ) AS t1
+-- => The average amont per basket is $ 193,15.
 
+-- =============
 -- What is the average number of product by basket ?
 SELECT SUM([Quantity Ordered]) / ( SELECT COUNT(distinct [Order ID])
 									FROM #temp_Sales) AS 'Basket average quantity'
 FROM  #temp_Sales
+-- => The average number of product per basket is 1,17.
 
+-- =============
 -- Where do we sell our products ?
 SELECT [Purchase City]
 , COUNT(DISTINCT [Order ID]) AS 'Number of orders'
@@ -102,7 +117,9 @@ SELECT [Purchase City]
 FROM #temp_Sales
 GROUP BY [Purchase City]
 ORDER BY 4 DESC
+-- => We sell principally in San Francisco
 
+-- =============
 -- In which part of the day do we sell the most ?
 SELECT [AMPM]
 , COUNT(DISTINCT [Order ID]) AS 'Number of orders'
@@ -111,7 +128,9 @@ SELECT [AMPM]
 FROM #temp_Sales
 GROUP BY [AMPM]
 ORDER BY 4 DESC
+-- => It's in the afternoon that we sell the most.
 
+-- =============
 -- In which part of the afternoon do we sell the most ? 7s
 SELECT
 CASE 
@@ -130,7 +149,9 @@ GROUP BY CASE
 	ELSE 'After 20h'
 END
 ORDER BY 4 DESC
+-- We sell the most between 4pm and 8pm.
 
+-- =============
 -- At what time do we sell the most ?
 SELECT LEFT([Order Time], 2) AS 'Hours'
 , COUNT(DISTINCT [Order ID]) AS 'Number of orders'
@@ -139,7 +160,9 @@ SELECT LEFT([Order Time], 2) AS 'Hours'
 FROM #temp_Sales
 GROUP BY LEFT([Order Time], 2) 
 ORDER BY 4 DESC
+-- => We have a record number of orders at 7pm.
 
+-- =============
 -- In which month do we sell the most ?
 SELECT MONTH([Order Date]) AS 'Month of year'
 , COUNT(DISTINCT [Order ID]) AS 'Number of orders'
@@ -148,7 +171,9 @@ SELECT MONTH([Order Date]) AS 'Month of year'
 FROM #temp_Sales
 GROUP BY MONTH([Order Date]) 
 ORDER BY 4 DESC
+-- => The month of the year when we sell the most is December.
 
+-- =============
 -- In which week do we sell the most ?
 SELECT DATEPART(week, [Order Date]) AS 'Month of year'
 , COUNT(DISTINCT [Order ID]) AS 'Number of orders'
@@ -157,15 +182,14 @@ SELECT DATEPART(week, [Order Date]) AS 'Month of year'
 FROM #temp_Sales
 GROUP BY DATEPART(week, [Order Date]) 
 ORDER BY 4 DESC
+-- => The week of the year when we sell the most is the week 51, i.e Christmas week.
 
 -- ======================
 -- Data analysis
 -- ======================
 
+-- =============
 -- What products are most often sold together?
-
-SELECT * FROM #temp_Sales
-
 SELECT [Product A], [Product B], COUNT([Pairs]) AS 'Number of Pairs'
 FROM (
 	SELECT t1.[Order ID]
@@ -178,8 +202,12 @@ FROM (
 ) AS t3
 GROUP BY [Product A], [Product B]
 ORDER BY 3 DESC
+-- => The products most often sold together are the Lightning Charging cable and the iPhone.
 
+-- =============
 -- What product sold the most? Why do you think it sold the most?
-
-
-
+SELECT [Product], sum([Quantity Ordered]) AS "Sum of Quantity Ordered", [Price Each]
+FROM #temp_Sales
+GROUP BY [Product], [Price Each]
+ORDER BY 2 DESC
+-- => The products we sell the most are the cheapest.
