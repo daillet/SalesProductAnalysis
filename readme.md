@@ -1,6 +1,6 @@
 # Sales product analysis
 
-The aim of this project is to provide an example of sales data analysis using SQL and Python. 
+The aim of this project is to provide an example of sales data analysis using SQL and Python. You can also find below two data visualizations made with Power BI.
 
 # About the dataset
 
